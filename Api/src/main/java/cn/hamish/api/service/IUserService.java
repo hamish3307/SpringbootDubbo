@@ -3,8 +3,7 @@ package cn.hamish.api.service;
 import cn.hamish.api.dto.UserDTO;
 import cn.hamish.api.dto.UserQueryDTO;
 import cn.hamish.common.BaseQueryDTO;
-
-import java.util.List;
+import cn.hamish.common.page.PageDTO;
 
 /**
  * @描述:
@@ -15,7 +14,7 @@ public interface IUserService {
 
     String sayHello(String name);
 
-    List<UserDTO> getUserList(BaseQueryDTO<UserQueryDTO> queryDTO);
+    PageDTO<UserDTO> getUserList(BaseQueryDTO<UserQueryDTO> queryDTO);
 
     UserDTO getUserById(String id);
 

@@ -4,6 +4,7 @@ import cn.hamish.api.dto.UserDTO;
 import cn.hamish.api.dto.UserQueryDTO;
 import cn.hamish.api.service.IUserService;
 import cn.hamish.common.BaseQueryDTO;
+import cn.hamish.common.page.PageDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.dubbo.config.annotation.Reference;
@@ -33,16 +34,14 @@ public class UserController {
 
     @ApiOperation(value="获取用户列表",notes="获取用户列表")
     @PostMapping("/list")
-    public List<UserDTO> getUserList(@RequestBody BaseQueryDTO<UserQueryDTO> queryDTO){
-        List<UserDTO> userList = userService.getUserList(queryDTO);
-        return userList;
+    public PageDTO<UserDTO> getUserList(@RequestBody BaseQueryDTO<UserQueryDTO> queryDTO){
+        return userService.getUserList(queryDTO);
     }
 
     @ApiOperation(value="获取用户详细",notes="获取用户详细")
     @GetMapping("/one")
     public UserDTO getUserInfo(@RequestParam("id") String id){
-        UserDTO user = userService.getUserById(id);
-        return user;
+        return userService.getUserById(id);
     }
 
 }

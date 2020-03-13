@@ -13,11 +13,8 @@ import java.io.Serializable;
 public class PageQueryDTO implements Serializable {
     private static final long serialVersionUID = 3944368714990200340L;
 
-    // 起始位置
-    private int pagingStart;
-
-    // 结束位置
-    private int pagingEnd;
+    // 默认页面大小
+    public static final int DEFAULT_PAGESIZE = 10;
 
     //当前页
     private int currentPage;
