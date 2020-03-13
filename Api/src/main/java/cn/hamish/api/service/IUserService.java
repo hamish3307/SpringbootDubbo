@@ -2,6 +2,7 @@ package cn.hamish.api.service;
 
 import cn.hamish.api.dto.UserDTO;
 import cn.hamish.api.dto.UserQueryDTO;
+import cn.hamish.common.BaseQueryDTO;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface IUserService {
 
     String sayHello(String name);
 
-    List<UserDTO> getUserList(UserQueryDTO queryDTO, int start, int rows);
+    List<UserDTO> getUserList(BaseQueryDTO<UserQueryDTO> queryDTO);
 
     UserDTO getUserById(String id);
 
