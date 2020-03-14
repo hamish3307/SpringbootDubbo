@@ -6,7 +6,10 @@ import cn.hamish.api.service.IUserService;
 import cn.hamish.common.BaseQueryDTO;
 import cn.hamish.common.page.PageDTO;
 import cn.hamish.provider.mybatis.mapper.IUserMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.common.utils.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -19,6 +22,7 @@ import java.util.List;
  */
 @Service(interfaceClass = IUserService.class)
 @Component
+@Slf4j
 public class UserServiceImpl implements IUserService {
 
     @Resource
@@ -42,6 +46,40 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDTO getUserById(String id) {
         return userMapper.getUserById(id);
+    }
+
+    @Override
+    public boolean save(UserDTO user) {
+        int i = userMapper.save(user);
+        if (i > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(UserDTO user) {
+        UserDTO userDTO = userMapper.getUserById(user.getId());
+        if (userDTO == null) {
+            log.error("不存在需要更新的用户");
+            return false;
+        }
+        // 测试 BeanUtils.copyProperties 对象转换，也可直接赋值
+        BeanUtils.copyProperties(userDTO, user);
+        int i = userMapper.update(userDTO);
+        if (i > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(String id) {
+        int i = userMapper.delete(id);
+        if (i > 0) {
+            return true;
+        }
+        return false;
     }
 
 }

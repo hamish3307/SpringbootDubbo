@@ -3,10 +3,7 @@ package cn.hamish.provider.mybatis.mapper;
 import cn.hamish.api.dto.UserDTO;
 import cn.hamish.api.dto.UserQueryDTO;
 import cn.hamish.provider.mybatis.provide.UserSqlProvider;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -19,7 +16,7 @@ import java.util.List;
 public interface IUserMapper {
 
     @SelectProvider(type = UserSqlProvider.class, method = "getUserCount")
-    long getUserCount(@Param("queryInfo") UserQueryDTO queryInfo);
+    long getUserCount(UserQueryDTO queryInfo);
 
     @SelectProvider(type = UserSqlProvider.class, method = "getUserList")
     List<UserDTO> getUserList(@Param("queryInfo") UserQueryDTO queryInfo,
@@ -28,5 +25,14 @@ public interface IUserMapper {
 
     @Select("select id,name,age,sex,tel from user where id = #{id}")
     UserDTO getUserById(@Param("id") String id);
+
+    @Insert("insert into user(id,name,age,sex,tel) values(#{id},#{name},#{age},#{sex},#{tel})")
+    int save(UserDTO user);
+
+    @Update("update user set name = #{name}, age = #{age}, sex = #{sex},tel = #{tel} where id = #{id}")
+    int update(UserDTO user);
+
+    @Delete("delete from user where id = #{id}")
+    int delete(String id);
 
 }

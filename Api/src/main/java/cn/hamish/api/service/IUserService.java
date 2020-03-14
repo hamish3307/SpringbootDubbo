@@ -18,4 +18,10 @@ public interface IUserService {
 
     UserDTO getUserById(String id);
 
+    boolean save(UserDTO user);
+
+    boolean update(UserDTO user);
+
+    boolean delete(String id);
+
 }
