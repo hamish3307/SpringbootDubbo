@@ -65,7 +65,7 @@ public class UserServiceImpl implements IUserService {
             return false;
         }
         // 测试 BeanUtils.copyProperties 对象转换，也可直接赋值
-        BeanUtils.copyProperties(userDTO, user);
+        BeanUtils.copyProperties(user, userDTO);
         int i = userMapper.update(userDTO);
         if (i > 0) {
             return true;
